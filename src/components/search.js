@@ -3,8 +3,13 @@ import React from 'react'
 import { selectBuilding } from '../actions/buildingActions'
 import { bindActionCreators } from 'redux'
 import { Input } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
 class Search extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   state = {
     text: ''
   }
@@ -12,6 +17,7 @@ class Search extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.selectBuilding(this.state.text)
+    this.context.router.history.push('/building')
   }
 
   handleChange = event => {

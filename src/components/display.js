@@ -1,39 +1,31 @@
 import React from 'react'
-import { VictoryBar, VictoryChart, VictoryAxis } from 'victory'
-import { Input, Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import Graph from './graph'
 
-const Display = props => (
-  <div>
-    <Menu attached='top' tabular>
-      <Menu.Item name='Graph' /*onClick={this.handleItemClick}*/ />
-      <Menu.Item name='Building Info' /*active={activeItem === 'photos'} onClick={this.handleItemClick}*/ />
-    </Menu>
+class Display extends React.Component {
+  state = { activeItem: 'Graph' }
 
-    <Segment attached='bottom'>
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render(){
+    const { activeItem } = this.state
+
+    return(
       <div>
-        <h1 style={{textAlign: 'center'}}>{`${props.building.street_number} ${props.building.street_name.trim()}'s Emmissions`}</h1>
-        <VictoryChart domainPadding={20}>
-          <VictoryAxis
-            tickValues={[1, 2, 3]}
-            tickFormat={["Total GHG", "Direct GHG", "Indirect GHG"]}
-          />
-          <VictoryAxis
-            dependentAxis
-            tickFormat={(x) => (`${x}`)}
-          />
-          <VictoryBar
-            data={[
-              {column: 1, emissions: parseInt(props.building.total_GHG_emissions)},
-              {column: 2, emissions: parseInt(props.building.direct_GHG_emissions)},
-              {column: 3, emissions: parseInt(props.building.indirect_GHG_emissions)}
-            ]}
-            x="column"
-            y="emissions"
-          />
-        </VictoryChart>
-      </div>
-    </Segment>
-  </div>
-)
+        <Menu attached='top' tabular>
+          <Menu.Item name='Graph' active={activeItem === 'Graph'} onClick={this.handleItemClick} />
+          <Menu.Item name='Building Info' active={activeItem === 'Building Info'} onClick={this.handleItemClick} />
+        </Menu>
 
-export default Display
+        <Segment attached='bottom'>
+          {activeItem === 'Graph' ? <Graph building={this.props.building}/> : null}
+        </Segment>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({ building: state.building })
+
+export default connect(mapStateToProps)(Display)

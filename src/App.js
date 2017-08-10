@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import Search from './components/search'
-import { connect } from 'react-redux'
 import Display from './components/display'
+import { Route } from 'react-router-dom'
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Search/>
-        {this.props.building != null ? <Display building={this.props.building}/> : null}
+        <Route path='/' component={Search}/>
+        <Route path='/building' component={Display}/>
       </div>
     )
   }
 }
-
-const mapStateToProps = state => ({ building: state.building })
-
-export default connect(mapStateToProps)(App)
