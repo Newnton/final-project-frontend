@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Route path='/' component={Search}/>
-        <Route path='/building' component={Display}/>
+        <Route path='/building/:address' component={Display}/>
       </div>
     )
   }

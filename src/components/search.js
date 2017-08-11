@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import { selectBuilding } from '../actions/buildingActions'
-import { bindActionCreators } from 'redux'
+import { clearBuilding } from '../actions/buildingActions'
 import { Input } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
@@ -16,8 +15,8 @@ class Search extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    this.props.selectBuilding(this.state.text)
-    this.context.router.history.push('/building')
+    this.props.clearBuilding()
+    this.context.router.history.push(`/building/${this.state.text.replace(/ /g, '%20')}`)
   }
 
   handleChange = event => {
@@ -29,7 +28,7 @@ class Search extends React.Component {
   render(){
     return(
       <div style={{textAlign: 'center'}}>
-        <br/>
+        <br/><br/><br/>
         <form onSubmit={this.handleSubmit}>
           <Input focus action='Submit' placeholder='Search...' onChange={this.handleChange}/>
         </form>
@@ -39,10 +38,4 @@ class Search extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    selectBuilding: selectBuilding
-  }, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(Search)
+export default connect(null, { clearBuilding: clearBuilding })(Search)
