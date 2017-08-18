@@ -1,12 +1,10 @@
 import React from 'react'
-import { Grid, Message, Image } from 'semantic-ui-react'
+import { Grid, Message, Image, Loader } from 'semantic-ui-react'
 
 const BuildingInfo = props => {
   return (
     props.building ?
     <Message>
-      <h1 style={{textAlign: 'center'}}>{`${props.building.street_number} ${props.building.street_name.trim()}`}</h1>
-      {/* <Message.Header>{`${props.building.street_number} ${props.building.street_name.trim()}`}</Message.Header> */}
       <Grid>
         <Grid.Row>
           <Grid.Column width={6}>
@@ -17,7 +15,7 @@ const BuildingInfo = props => {
             </Message.List>
           </Grid.Column>
           <Grid.Column width={10}>
-            <Image src={props.map}/>
+            {props.map ? <Image src={props.map.url}/> : <Loader active/>}
           </Grid.Column>
         </Grid.Row>
       </Grid>

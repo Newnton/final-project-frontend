@@ -1,15 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Grid } from 'semantic-ui-react'
 import Search from './components/search'
 import Display from './components/display'
-import { Route } from 'react-router-dom'
+import page404 from './components/page404'
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Route path='/' component={Search}/>
-        <Route path='/building/:address' component={Display}/>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <Router>
+    <Grid>
+      <Grid.Row>
+        <Grid.Column width={2}/>
+          <Grid.Column width={12}>
+            <Search/>
+            <Switch>
+              <Route exact path='/'/>
+              <Route path='/building' component={Display}/>
+              <Route component={page404}/>
+            </Switch>
+          </Grid.Column>
+        <Grid.Column width={2}/>
+      </Grid.Row>
+    </Grid>
+  </Router>
+)
+export default App
