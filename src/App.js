@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
+import InteractiveMap from './components/interactiveMap'
 import Search from './components/search'
 import Display from './components/display'
 import page404 from './components/page404'
@@ -13,7 +14,7 @@ const App = () => (
           <Grid.Column width={12}>
             <Search/>
             <Switch>
-              <Route exact path='/'/>
+              <Route exact path='/' component={InteractiveMap}/>
               <Route path='/building' component={Display}/>
               <Route component={page404}/>
             </Switch>

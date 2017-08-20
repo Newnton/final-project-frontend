@@ -52,6 +52,19 @@ export const getAqi = (lat, lng) => {
   }
 }
 
+export const getAllBuildings = () => {
+  return dispatch => {
+    fetch ('http://localhost:3000/api/v1/buildings')
+      .then(res => res.json())
+      .then(res => {
+        dispatch({
+          type: 'GET_ALL_BUILDINGS',
+          buildings: res.buildings
+        })
+      })
+  }
+}
+
 export const clearBuilding = () => {
   return dispatch => dispatch({ type: 'CLEAR_BUILDING' })
 }
