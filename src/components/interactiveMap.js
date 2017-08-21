@@ -5,7 +5,6 @@ import GoogleMapReact from 'google-map-react'
 import { Loader } from 'semantic-ui-react'
 import MapBuilding from './map/mapBuilding'
 
-
 class InteractiveMap extends React.Component {
   componentDidMount(){
     this.props.getAllBuildings()
