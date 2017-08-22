@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Message } from 'semantic-ui-react'
+import { Message, Loader } from 'semantic-ui-react'
 import ReactMapboxGL, { Layer, Feature, Cluster, Marker } from 'react-mapbox-gl'
+import { clearBuilding } from '../actions/buildingActions'
 
 class InteractiveMap extends React.Component {
   static contextTypes = {
     router: PropTypes.object
+  }
+
+  componentDidMount(){
+    this.props.clearBuilding()
   }
 
   mapBuildings = (buildings, borough) => {
@@ -103,7 +108,7 @@ class InteractiveMap extends React.Component {
               >
               </Layer>
             </Map>
-            : null
+            : <div><br/><br/><br/><Loader active/><br/><br/><br/></div>
           }
         </Message>
       </div>
@@ -115,4 +120,4 @@ const mapStateToProps = state => ({
   buildings: state.buildings
 })
 
-export default connect( mapStateToProps )( InteractiveMap )
+export default connect( mapStateToProps, {clearBuilding: clearBuilding} )( InteractiveMap )

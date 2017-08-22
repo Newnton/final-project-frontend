@@ -37,7 +37,7 @@ class Display extends React.Component {
     this.handleRoute()
     if ( this.props.building && typeof( this.props.building ) !== 'string' ){
       if (!this.props.map){
-        this.props.getMap(`${this.props.building.street_number}+${this.props.building.street_name}`)
+        this.props.getMap(`${this.props.building.street_number}+${this.props.building.street_name},%20NY,%20${this.props.building.zipcode}`)
       } else if (!this.props.aqi){
         this.props.getAqi(this.props.building.lat, this.props.building.lng)
       }
