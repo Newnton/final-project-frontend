@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Message, Menu, Segment, Loader } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { selectBuilding, getMap, getLatLng, getAqi } from '../actions/buildingActions'
+import { selectBuilding, getMap, getAqi } from '../actions/buildingActions'
 import Graph from './menuItems/graph'
 import BuildingInfo from './menuItems/buildingInfo'
 import AirQuality from './menuItems/airQuality'
@@ -16,19 +16,31 @@ class Display extends React.Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-  render(){
-    if (!this.props.building) {
-      this.props.selectBuilding(this.context.router.history.location.pathname.slice(10))
-    } else if (!this.props.map){
-      this.props.getMap(`${this.props.building.street_number}+${this.props.building.street_name}`)
-    } else if (!this.props.latLng){
-      this.props.getLatLng(`${this.props.building.street_number}+${this.props.building.street_name}`)
-    } else if (!this.props.aqi){
-      this.props.getAqi(this.props.latLng.lat, this.props.latLng.lng)
+  handleRoute = () => {
+    if (this.props.building) {
+      if (this.context.router.history.location.pathname.length > 9){
+        if (parseInt(this.context.router.history.location.pathname.slice(10), 10) !== this.props.building.id){
+          this.props.selectBuilding(this.context.router.history.location.pathname.slice(10), 'id')
+        }
+      }
+      else if (this.context.router.history.location.pathname.length === 9) {
+        this.context.router.history.push(`/building/${this.props.building.id}`)
+      }
+    } else {
+      if (this.context.router.history.location.pathname.length > 9){
+        this.props.selectBuilding(this.context.router.history.location.pathname.slice(10), 'id')
+      }
     }
+  }
 
-    if ( typeof( this.props.building ) !== 'string' ){
-      if (this.props.map) console.dir(this.props.map.body)
+  render(){
+    this.handleRoute()
+    if ( this.props.building && typeof( this.props.building ) !== 'string' ){
+      if (!this.props.map){
+        this.props.getMap(`${this.props.building.street_number}+${this.props.building.street_name}`)
+      } else if (!this.props.aqi){
+        this.props.getAqi(this.props.building.lat, this.props.building.lng)
+      }
       const { activeItem } = this.state
       return (
         <div>
@@ -42,7 +54,7 @@ class Display extends React.Component {
             {this.props.building ? <h1 style={{textAlign: 'center'}}>{`${this.props.building.street_number} ${this.props.building.street_name.trim()}`}</h1> : <Loader/>}
             {activeItem === 'Building Info' ? <BuildingInfo building={this.props.building} map={this.props.map}/> : null}
             {activeItem === 'Graph' ? <Graph building={this.props.building} averages={this.props.averages}/> : null}
-            {activeItem === 'Air Quality' ? <AirQuality latLng={this.props.latLng} aqi={this.props.aqi}/> : null}
+            {activeItem === 'Air Quality' ? <AirQuality lat={this.props.building.lat} lng={this.props.building.lng} aqi={this.props.aqi}/> : null}
           </Segment>
         </div>
       )
@@ -62,14 +74,12 @@ const mapStateToProps = state => ({
   building: state.building,
   map: state.map,
   averages: state.averages,
-  latLng: state.latLng,
   aqi: state.aqi
 })
 
 export default connect(mapStateToProps,
   { selectBuilding: selectBuilding,
     getMap: getMap,
-    getLatLng: getLatLng,
     getAqi: getAqi
   }
 )(Display)

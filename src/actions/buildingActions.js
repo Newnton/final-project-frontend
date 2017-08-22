@@ -1,8 +1,8 @@
 import { googleKey, aqiKey } from '../hidden/keys'
 
-export const selectBuilding = (address) => {
+export const selectBuilding = (address, type) => {
   return dispatch => {
-    fetch(`http://localhost:3000/api/v1/buildings/${address}`)
+    fetch(`http://localhost:3000/api/v1/buildings/${type}/${address}`)
       .then(res => res.json())
       .then(res => {
         dispatch({
@@ -26,16 +26,16 @@ export const getMap = (address) => {
   }
 }
 
-export const getLatLng = (address) => {
+export const getBoroughs = (address) => {
   return dispatch => {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},%20NY&key=${googleKey}`)
-    .then(res => res.json())
-    .then(res => {
-      dispatch({
-        type: 'GET_LAT_LNG',
-        value: res.results[0].geometry.location
+    fetch('http://localhost:3000/api/v1/boroughs')
+      .then( res => res.json() )
+      .then(res => {
+        dispatch({
+          type: 'GET_BOROUGHS',
+          boroughs: res
+        })
       })
-    })
   }
 }
 
@@ -59,7 +59,7 @@ export const getAllBuildings = () => {
       .then(res => {
         dispatch({
           type: 'GET_ALL_BUILDINGS',
-          buildings: res.buildings
+          buildings: res
         })
       })
   }

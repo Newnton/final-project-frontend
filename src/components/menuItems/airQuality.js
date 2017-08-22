@@ -37,8 +37,8 @@ export default class airQuality extends React.Component{
                 </Grid.Row>
                 <Grid.Row>
                   <p>
-                    lat: { this.props.latLng.lat }
-                    lng: { this.props.latLng.lng }
+                    lat: { this.props.lat }
+                    lng: { this.props.lng }
                   </p>
                   <p>
                     aqi: {this.props.aqi.data.aqi}
