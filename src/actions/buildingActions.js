@@ -2,7 +2,7 @@ import { googleKey, aqiKey } from '../hidden/keys'
 
 export const selectBuilding = (address, type) => {
   return dispatch => {
-    fetch(`http://localhost:3000/api/v1/buildings/${type}/${address}`)
+    fetch(`https://grasshopper-backend.herokuapp.com/api/v1/buildings/${type}/${address}`)
       .then(res => res.json())
       .then(res => {
         dispatch({
@@ -28,7 +28,7 @@ export const getMap = (address) => {
 
 export const getBoroughs = (address) => {
   return dispatch => {
-    fetch('http://localhost:3000/api/v1/boroughs')
+    fetch('https://grasshopper-backend.herokuapp.com/api/v1/boroughs')
       .then( res => res.json() )
       .then(res => {
         dispatch({
@@ -54,7 +54,7 @@ export const getAqi = (lat, lng) => {
 
 export const getAllBuildings = () => {
   return dispatch => {
-    fetch ('http://localhost:3000/api/v1/buildings')
+    fetch ('https://grasshopper-backend.herokuapp.com/api/v1/buildings')
       .then(res => res.json())
       .then(res => {
         dispatch({
