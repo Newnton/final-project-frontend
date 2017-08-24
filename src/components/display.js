@@ -12,7 +12,7 @@ class Display extends React.Component {
     router: PropTypes.object
   }
 
-  state = { activeItem: 'Building Info' }
+  state = { activeItem: 'Building' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -45,16 +45,16 @@ class Display extends React.Component {
       return (
         <div>
           <Menu attached='top' tabular>
-            <Menu.Item name='Building Info' active={activeItem === 'Building Info'} onClick={this.handleItemClick} />
-            <Menu.Item name='Graph' active={activeItem === 'Graph'} onClick={this.handleItemClick} />
-            <Menu.Item name='Air Quality' active={activeItem === 'Air Quality'} onClick={this.handleItemClick} />
+            <Menu.Item name='Building' active={activeItem === 'Building'} onClick={this.handleItemClick} />
+            <Menu.Item name='Energy' active={activeItem === 'Energy'} onClick={this.handleItemClick} />
+            {/* <Menu.Item name='Air Quality' active={activeItem === 'Air Quality'} onClick={this.handleItemClick} /> */}
           </Menu>
 
           <Segment attached='bottom'>
-            {this.props.building ? <h1 style={{textAlign: 'center'}}>{`${this.props.building.street_number} ${this.props.building.street_name.trim()}`}</h1> : <Loader/>}
-            {activeItem === 'Building Info' ? <BuildingInfo building={this.props.building} map={this.props.map}/> : null}
-            {activeItem === 'Graph' ? <Graph building={this.props.building} averages={this.props.averages}/> : null}
-            {activeItem === 'Air Quality' ? <AirQuality lat={this.props.building.lat} lng={this.props.building.lng} aqi={this.props.aqi}/> : null}
+            {this.props.building ? <h1 style={{textAlign: 'center'}}>{`${this.props.building.street_number} ${this.props.building.street_name.trim()}`}:</h1> : <Loader/>}
+            {activeItem === 'Building' ? <BuildingInfo building={this.props.building} map={this.props.map}/> : null}
+            {activeItem === 'Energy' ? <Graph building={this.props.building} averages={this.props.averages}/> : null}
+            {/* {activeItem === 'Air Quality' ? <AirQuality lat={this.props.building.lat} lng={this.props.building.lng} aqi={this.props.aqi}/> : null} */}
           </Segment>
         </div>
       )

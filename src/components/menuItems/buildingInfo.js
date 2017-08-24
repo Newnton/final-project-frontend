@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Message, Image, Loader } from 'semantic-ui-react'
+import { Grid, Message, Card, Image, Loader } from 'semantic-ui-react'
 
 const BuildingInfo = props => {
   return (
@@ -7,15 +7,18 @@ const BuildingInfo = props => {
     <Message>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={6}>
-            <Message.List>
-              <Message.Item>Primary Type: {props.building.primary_property_type}</Message.Item>
-              <Message.Item>Size: {`${props.building.property_floor_area} sqft`}</Message.Item>
-              <Message.Item>Energy Star Score: {props.building.energy_star_score}</Message.Item>
-            </Message.List>
-          </Grid.Column>
           <Grid.Column width={10}>
             {props.map ? <Image src={props.map.url}/> : <Loader active/>}
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Card style={{margin: 'auto', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
+              <Card.Header><h2 style={{textAlign: 'center', margin: '15px'}}>Details:</h2></Card.Header>
+              <Card.Content>
+                <p style={{margin: '7px'}}>Primary Type: {props.building.primary_property_type}</p>
+                <p style={{margin: '7px'}}>Size: {`${props.building.property_floor_area} sqft`}</p>
+                <p style={{margin: '7px'}}>Energy Star Score: {props.building.energy_star_score}</p>
+              </Card.Content>
+            </Card>
           </Grid.Column>
         </Grid.Row>
       </Grid>

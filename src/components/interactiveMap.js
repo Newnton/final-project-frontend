@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Message, Loader } from 'semantic-ui-react'
-import ReactMapboxGL, { Layer, Feature, Cluster, Marker } from 'react-mapbox-gl'
+import ReactMapboxGL, { Layer, Cluster, Marker } from 'react-mapbox-gl'
 import { clearBuilding } from '../actions/buildingActions'
 
 class InteractiveMap extends React.Component {
@@ -15,14 +15,13 @@ class InteractiveMap extends React.Component {
   }
 
   mapBuildings = (buildings, borough) => {
-    let i = 0
     const array = buildings[borough].map( building => (
         <Marker
           onClick={()=>this.clickBuilding(building.id)}
           key={building.id}
           coordinates={[building.lng,building.lat]}
           anchor="bottom">
-          <img style={{width: '30px', height: '30px'}} src={'https://nogps.io/img/favicon-512.png'}/>
+          <img style={{width: '30px', height: '30px'}} src={'https://nogps.io/img/favicon-512.png'} alt=''/>
         </Marker>
       )
     )
@@ -38,7 +37,7 @@ class InteractiveMap extends React.Component {
     <Marker
       coordinates={[-73.9712, 40.7831]}
       anchor="bottom">
-      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'}/>
+      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'} alt=''/>
     </Marker>
   )
 
@@ -46,7 +45,7 @@ class InteractiveMap extends React.Component {
     <Marker
       coordinates={[-73.9442, 40.6782]}
       anchor="bottom">
-      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'}/>
+      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'} alt=''/>
     </Marker>
   )
 
@@ -54,7 +53,7 @@ class InteractiveMap extends React.Component {
     <Marker
       coordinates={[-73.8648, 40.8448]}
       anchor="bottom">
-      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'}/>
+      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'} alt=''/>
     </Marker>
   )
 
@@ -62,7 +61,7 @@ class InteractiveMap extends React.Component {
     <Marker
       coordinates={[-73.7949, 40.7282]}
       anchor="bottom">
-      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'}/>
+      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'} alt=''/>
     </Marker>
   )
 
@@ -70,7 +69,7 @@ class InteractiveMap extends React.Component {
     <Marker
       coordinates={[-74.1502, 40.5795]}
       anchor="bottom">
-      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'}/>
+      <img style={{width: '20px', height: '20px'}} src={'http://files.iconfactory.net/downloads/miscellaneous/dfstar.svg'} alt=''/>
     </Marker>
   )
 
@@ -99,7 +98,7 @@ class InteractiveMap extends React.Component {
               <Cluster ClusterMarkerFactory={this.brooklynClusterMarker} maxZoom={14}>
                 {this.mapBuildings(this.props.buildings, 'brooklyn')}
               </Cluster>
-              <Cluster ClusterMarkerFactory={this.statenClusterMarker} maxZoom={14}>
+              <Cluster ClusterMarkerFactory={this.statenClusterMarker} maxZoom={12}>
                 {this.mapBuildings(this.props.buildings, 'staten')}
               </Cluster>
               <Layer
@@ -110,6 +109,7 @@ class InteractiveMap extends React.Component {
             </Map>
             : <div><br/><br/><br/><Loader active/><br/><br/><br/></div>
           }
+          <p>Zoom and click on point to view building</p>
         </Message>
       </div>
     )

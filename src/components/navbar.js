@@ -34,19 +34,19 @@ class Navbar extends React.Component {
           <NavLink to='/'>Home</NavLink>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to='/building'>Building</NavLink>
+          <NavLink to='/map'>Buildings</NavLink>
         </Menu.Item>
         <Menu.Item>
           <NavLink to='/boroughs'>Boroughs</NavLink>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to='/faq'>FAQ</NavLink>
+          <NavLink to='/definitions'>Definitions</NavLink>
         </Menu.Item>
 
         <Menu.Menu position='right'>
           <div className='ui right aligned category search item'>
             <form className='ui icon input' onSubmit={this.handleSubmit}>
-              <input className='prompt' type='text' placeholder='Search Buildings...' onChange={this.handleChange}/>
+              <input className='prompt' type='text' placeholder='Enter Address' onChange={this.handleChange}/>
               <i className='search link icon' />
             </form>
           </div>

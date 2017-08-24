@@ -8,7 +8,8 @@ import BoroughsContainer from './components/boroughsContainer'
 import Navbar from './components/navbar'
 import Display from './components/display'
 import page404 from './components/page404'
-import FAQ from './components/faq'
+import Definitions from './components/definitions'
+import Home from './components/home'
 
 class App extends React.Component{
   componentDidMount(){
@@ -25,11 +26,11 @@ class App extends React.Component{
             <Grid.Column width={2}/>
               <Grid.Column width={12}>
                 <Switch>
-                  <Route exact path='/' />
-                  <Route exact path='/building' component={InteractiveMap}/>
-                  <Route path='/building/:id' component={Display}/>
+                  <Route exact path='/' component={Home}/>
+                  <Route path='/map' component={InteractiveMap}/>
+                  <Route path='/building' component={Display}/>
                   <Route path='/boroughs' component={BoroughsContainer}/>
-                  <Route path='/faq' component={FAQ} />
+                  <Route path='/definitions' component={Definitions} />
                   <Route component={page404}/>
                 </Switch>
               </Grid.Column>

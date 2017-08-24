@@ -4,7 +4,6 @@ import { VictoryChart, VictoryArea, VictoryTheme, VictoryPolarAxis } from 'victo
 
 const BoroughRadar = props => (
   <div>
-    <h2 style={{textAlign: 'center'}}>{props.type + 's:'}</h2>
     {props.boroughs !== null ? console.dir(props.boroughs) : null}
     {props.boroughs && props.activeItem !== null ?
       <div>
@@ -20,15 +19,10 @@ const BoroughRadar = props => (
             ]
           }/>
           <VictoryPolarAxis
-            tickValues={[props.type + ' site EUI', props.type + ' direct GHG', props.type + ' indirect GHG', props.type + ' source EUI']}
+            tickValues={['site EUI', 'd GHG', 'i GHG', 'src EUI']}
             labelPlacement="vertical"
           />
         </VictoryChart>
-        <h1>{props.type}</h1>
-        <p>Site EUI: {props.boroughs[props.activeItem][props.type + '_site_eui']}</p>
-        <p>Source EUI: {props.boroughs[props.activeItem][props.type + '_source_eui']}</p>
-        <p>Direct GHG Emissions: {props.boroughs[props.activeItem][props.type + '_direct_ghg']}</p>
-        <p>Indirect GHG Emissions: {props.boroughs[props.activeItem][props.type + '_indirect_ghg']}</p>
       </div>
       : <Loader active/>
     }
