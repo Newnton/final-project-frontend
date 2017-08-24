@@ -55,7 +55,7 @@ const Graph = props => {
                   >
                   <VictoryAxis
                     tickValues={[1, 2, 3, 4]}
-                    tickFormat={['Avg Source EUI', `Avg Site EUI`, `Source EUI`, `Site EUI`]}
+                    tickFormat={['Avg Src EUI', `Avg Site EUI`, `Src EUI`, `Site EUI`]}
                   />
                   <VictoryAxis
                     dependentAxis
